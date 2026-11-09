@@ -50,6 +50,21 @@ SAMPLE_POSTS = [
     "This is fine",
     "So excited for the weekend",
     "I am not happy about this",
+    "Lowkey stressed but kind of proud of myself",
+    "I absolutely love getting stuck in traffic",
+    "no cap this pizza is amazing 😂",
+    "Got a B on the exam 🥲",
+    "highkey hate mondays :(",
+    "Just finished my homework",
+    "That movie was so bad it was actually fun 💀",
+    "Great, another group project. Can't wait.",
+    "chillin with friends :)",
+    "I'm dead 💀💀 this is the funniest thing ever",
+    "ugh my phone died again :(",
+    "not bad for a monday",
+    "I'm so tired of this lol",
+    "lowkey love this weather",
+    "Can't believe I passed!! 😭",
 ]
 
 # Human labels for each post above.
@@ -58,6 +73,7 @@ SAMPLE_POSTS = [
 #   - "negative"
 #   - "neutral"
 #   - "mixed"
+#   - "sarcasm" (positive words used to mean something negative)
 TRUE_LABELS = [
     "positive",  # "I love this class so much"
     "negative",  # "Today was a terrible day"
@@ -65,30 +81,30 @@ TRUE_LABELS = [
     "neutral",   # "This is fine"
     "positive",  # "So excited for the weekend"
     "negative",  # "I am not happy about this"
+    "mixed",     # "Lowkey stressed but kind of proud of myself"
+    "sarcasm",   # "I absolutely love getting stuck in traffic"
+    "positive",  # "no cap this pizza is amazing 😂"
+    "mixed",     # "Got a B on the exam 🥲" (edge case: could be read as positive)
+    "negative",  # "highkey hate mondays :("
+    "neutral",   # "Just finished my homework" (edge case: could be relief/positive)
+    "positive",  # "That movie was so bad it was actually fun 💀" (edge case: "bad" + "fun")
+    "sarcasm",   # "Great, another group project. Can't wait."
+    "positive",  # "chillin with friends :)"
+    "positive",  # "I'm dead 💀💀 this is the funniest thing ever" (slang: "dead" = laughing)
+    "negative",  # "ugh my phone died again :("
+    "positive",  # "not bad for a monday" (negation: "not bad")
+    "negative",  # "I'm so tired of this lol" (edge case: "lol" here is exasperated, not happy)
+    "positive",  # "lowkey love this weather"
+    "positive",  # "Can't believe I passed!! 😭" (edge case: 😭 as happy tears)
 ]
 
-# TODO: Add 5-10 more posts and labels.
-#
-# Requirements:
-#   - For every new post you add to SAMPLE_POSTS, you must add one
-#     matching label to TRUE_LABELS.
-#   - SAMPLE_POSTS and TRUE_LABELS must always have the same length.
-#   - Include a variety of language styles, such as:
-#       * Slang ("lowkey", "highkey", "no cap")
-#       * Emojis (":)", ":(", "🥲", "😂", "💀")
-#       * Sarcasm ("I absolutely love getting stuck in traffic")
-#       * Ambiguous or mixed feelings
-#
-# Tips:
-#   - Try to create some examples that are hard to label even for you.
-#   - Make a note of any examples that you and a friend might disagree on.
-#     Those "edge cases" are interesting to inspect for both the rule based
-#     and ML models.
-#
-# Example of how you might extend the lists:
-#
-# SAMPLE_POSTS.append("Lowkey stressed but kind of proud of myself")
-# TRUE_LABELS.append("mixed")
-#
-# Remember to keep them aligned:
-#   len(SAMPLE_POSTS) == len(TRUE_LABELS)
+# Edge cases worth inspecting (people might disagree on these):
+#   - "Got a B on the exam 🥲": 🥲 can mean relief, disappointment, or both.
+#   - "Just finished my homework": neutral fact, or quietly positive relief?
+#   - "That movie was so bad it was actually fun 💀": mixed or positive?
+#   - Sarcastic posts ("I absolutely love...", "Great, ... Can't wait.") use
+#     positive words to say something negative, which should trip up the
+#     rule-based model.
+#   - "I'm dead 💀💀": negative-sounding slang that actually means laughing.
+
+assert len(SAMPLE_POSTS) == len(TRUE_LABELS)
